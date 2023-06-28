@@ -3,7 +3,6 @@
 <launch>
   <!-- Arguments for launch file with defaults provided -->
   <arg name="database_path"     default="rtabmap.db"/>
-
   <arg name="rgb_topic"   default="/camera/rgb/image_raw"/>
   <arg name="depth_topic" default="/camera/depth/image_raw"/>
   <arg name="camera_info_topic" default="/camera/rgb/camera_info"/>  
@@ -11,7 +10,7 @@
   
   <!-- Mapping Node -->
   <group ns="rtabmap">
-    <node name="rtabmap" pkg="rtabmap_ros" type="rtabmap" output="screen" args="--delete_db_on_start">
+    <node name="rtabmap" pkg="rtabmap_ros" type="rtabmap" output="screen">
 
       <!-- Basic RTAB-Map Parameters -->
       <param name="database_path"       type="string" value="$(arg database_path)"/>
@@ -25,8 +24,6 @@
       <remap from="rgb/image" to="$(arg rgb_topic)"/>
       <remap from="depth/image" to="$(arg depth_topic)"/>
       <remap from="rgb/camera_info" to="$(arg camera_info_topic)"/>
-
-      <param name="queue_size" type="int" value="10" />
 
       <!-- RTAB-Map Output -->
       <remap from="grid_map" to="/map"/>
@@ -54,8 +51,8 @@
       <!-- Minimum visual inliers to accept loop closure -->
       <param name="Vis/MinInliers" type="string" value="15"/>
 
-      <!-- Set to false to avoid saving data when robot is not moving -->
-      <param name="Mem/NotLinkedNodesKept" type="string" value="false"/>
+      <!-- Added************************* -->
+      <param name="Mem/IncrementalMemory" type="string" value="false"/>
     </node>
 
     <!-- visualization with rtabmapviz -->
